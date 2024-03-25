@@ -1,7 +1,7 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class linkedlist2<Item> implements Iterable<Item>{// "<Item>" Parametrizar
+public class Stack<Item> implements Iterable<Item>{// "<Item>" Parametrizar
 
 
     @Override
@@ -38,59 +38,32 @@ public class linkedlist2<Item> implements Iterable<Item>{// "<Item>" Parametriza
     private Node first; // first guarda esse campo lá de cima
 
 
-    public void addFirst(Item item){ // Adicionando nó na lista
+    public void push(Item item){ // Adicionando nó na lista
         Node newNode = new Node(); //Cria um novo nó chamado newNode;
         newNode.item = item; //o nó aponta para o parâmetro item especificado
         newNode.next = first; //depois o newNode irá apontar para o próximo, ou seja, para o first
         first = newNode; // o First será o newNode, no fim, adicionando um novo nó na lista já existente
         n++; // incrementa no n indicando mais um nó;
     }
-    public void addLast(Item item){
-        if (isEmpty())
-            addFirst(item); // Verifica se a lista está vazia, se sim, adiciona um "item" nela;
-        else {
-            Node beforeLast = null;
-            Node last = first;
 
-            while (last != null) {
-                beforeLast = last;
-                last = last.next;
-            }
-            Node newNode = new Node();
-            newNode.item = item;
-            beforeLast.next = newNode;
-            n++;
-        }
-    }
 
-    public void removeLast() {
-        if (isEmpty())
-            throw new NoSuchElementException("A lista está vazia");
-        else {
-            Node beforeLast = null;
-            Node last = first;
-
-            while (last.next != null){
-                beforeLast = last;
-                last = last.next;
-            }
-            beforeLast.next = null;
-            n--;
-        }
-    
-
-    }
-
-    public void removeFirst() {
+    public Item pop() {
+        Item item = null;
         if (isEmpty())
             throw new NoSuchElementException();
         else {
+            item = first.item;
             first = first.next;
             n--;
         }
+        return item;
     }
 
-
+    public Item peek(){
+        if(isEmpty())
+            throw new NoSuchElementException("Empty Stack");
+        return first.item;
+    }
 
     private int n; //opcional indicar o tamanho da lista
 
@@ -101,7 +74,7 @@ public class linkedlist2<Item> implements Iterable<Item>{// "<Item>" Parametriza
         return first == null;
     } //Verifica se está vazio a lista
 
-    public linkedlist2(){ // construtor indicando os valores na lista
+    public Stack(){ // construtor indicando os valores na lista
         first = null;
         n = 0;
     }
